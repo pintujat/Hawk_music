@@ -10,9 +10,17 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import AccountScreen from '../screens/AccountScreen';
+import HomeScreen from '../screens/HomeScreen';
+import MyMusicScreen from '../screens/MyMusicScreen';
+import SearchScreen from '../screens/SearchScreen';
+import { 
+  BottomTabParamList, 
+  HomeParamList, 
+  MyMusicParamList,
+  SearchParamList,
+  AccountParamList
+ } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,20 +29,34 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="md-home-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="MyMusic"
+        component={MyMusicNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="musical-notes-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Search"
+        component={SearchNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Account"
+        component={AccountNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="person-circle-outline" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -49,30 +71,57 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerTitle: 'Home' }}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const MyMusicStack = createStackNavigator<MyMusicParamList>();
 
-function TabTwoNavigator() {
+function MyMusicNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <MyMusicStack.Navigator>
+      <MyMusicStack.Screen
+        name="MyMusicScreen"
+        component={MyMusicScreen}
+        options={{ headerTitle: 'My Music' }}
       />
-    </TabTwoStack.Navigator>
+    </MyMusicStack.Navigator>
   );
 }
+const SearchStack = createStackNavigator<SearchParamList>();
+
+function SearchNavigator() {
+  return (
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{ headerTitle: 'Search' }}
+      />
+    </SearchStack.Navigator>
+  );
+}
+const AccountStack = createStackNavigator<AccountParamList>();
+
+function AccountNavigator() {
+  return (
+    <AccountStack.Navigator>
+      <AccountStack.Screen
+        name="AccountScreen"
+        component={AccountScreen}
+        options={{ headerTitle: 'Account' }}
+      />
+    </AccountStack.Navigator>
+  );
+}
+
